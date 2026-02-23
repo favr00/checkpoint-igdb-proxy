@@ -50,7 +50,7 @@ export default async function handler(req, res) {
     "games", "covers", "screenshots", "artworks", "genres", "platforms",
     "involved_companies", "companies", "game_modes", "themes",
     "player_perspectives", "franchises", "collections", "search",
-    "release_dates", "websites", "game_videos", 'game_time_to_beats",
+    "release_dates", "websites", "game_videos", "game_time_to_beats",
   ];
 
   if (!validEndpoints.includes(endpoint)) {
