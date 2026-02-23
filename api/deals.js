@@ -10,8 +10,13 @@ export default async function handler(req, res) {
 
   try {
     const url = `https://www.cheapshark.com/api/1.0/deals?title=${encodeURIComponent(title)}&limit=${limit}&sortBy=${sortBy}&storeID=${storeID}`;
-    const response = await fetch(url);
-    if (!response.ok) return res.status(response.status).json({ error: "CheapShark API error" });
+    const response = await fetch(url, {
+      headers: { "User-Agent": "Checkpoint-App/1.0" }
+    });
+    if (!response.ok) {
+      const errText = await response.text();
+      return res.status(response.status).json({ error: "CheapShark API error", status: response.status, details: errText });
+    }
     const data = await response.json();
     res.setHeader("Cache-Control", "s-maxage=3600, stale-while-revalidate=7200");
     return res.status(200).json(data);
